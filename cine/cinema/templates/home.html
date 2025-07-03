@@ -1,0 +1,145 @@
+{% extends "baseHome.html" %}
+{% load static %}
+
+{% block title %}CineX - Tu cine favorito{% endblock %}
+
+{% block extra_css %}
+<style>
+    .sala-asiento {
+        width: 30px;
+        height: 30px;
+        margin: 5px;
+        border-radius: 5px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 10px;
+    }
+    
+    .sala-asiento.disponible {
+        background-color: #28a745;
+    }
+    
+    .sala-asiento.ocupado {
+        background-color: #dc3545;
+        cursor: not-allowed;
+    }
+    
+    .sala-asiento.seleccionado {
+        background-color: #007bff;
+    }
+    
+    .sala-pantalla {
+        background-color: #333;
+        color: white;
+        text-align: center;
+        padding: 10px;
+        margin-bottom: 20px;
+        border-radius: 5px;
+    }
+    
+    /* Efectos para las cards de películas */
+    .movie-card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .movie-card:hover {
+        transform: scale(1.05);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <div class="container">
+                <h1 class="display-3 fw-bold mb-4"><i class="bi bi-cup-hot-fill me-3"></i>¡Bienvenido a CineX!</h1>
+                <p class="lead mb-5">Disfruta de las mejores películas y delicias recién hechas. Compra tus boletos y snacks en un par de clics.</p>
+                <a href="#cartelera" class="btn btn-cinex-red btn-lg px-4 py-2">
+                    Ver cartelera
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección de Cartelera -->
+    <section id="cartelera" class="py-5 bg-white">
+        <div class="container">
+            <h2 class="text-center mb-5 display-5 fw-bold"><i class="bi bi-film me-2"></i>Cartelera</h2>
+            
+            {% if showtimes %}
+            <div class="row g-4">
+                {% for st in showtimes %}
+                <div class="col-md-6 col-lg-4">
+                    <div class="movie-card card h-100">
+                        {% if st.movie.poster %}
+                        <img src="{{ st.movie.poster.url }}" alt="{{ st.movie }}" class="card-img-top" style="height: 400px; object-fit: cover;">
+                        {% else %}
+                        <img src="https://placehold.co/400x600" alt="Sin póster" class="card-img-top" style="height: 400px; object-fit: cover;">
+                        {% endif %}
+                        <div class="card-body">
+                            <h3 class="card-title fw-bold">{{ st.movie }}</h3>
+                            <p class="card-text text-muted">{{ st.language }} · {{ st.format }} · {{ st.start_time|date:"d M H:i" }}</p>
+                            <p class="card-text">{{ st.movie.synopsis|truncatechars:120 }}</p>
+                        </div>
+                        <div class="card-footer bg-transparent">
+                        <a href="{% url 'seat_selection' st.id %}" class="btn btn-cinex-red w-100">
+                          Comprar boletos
+                        </a>
+
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <div class="alert alert-info text-center">
+                <i class="bi bi-info-circle me-2"></i> Aún no hay funciones programadas.
+            </div>
+            {% endif %}
+        </div>
+    </section>
+
+    <!-- Sección de Snacks -->
+    <section id="snacks" class="py-5 bg-light">
+        <div class="container">
+            <h2 class="text-center mb-5 display-5 fw-bold"><i class="bi bi-egg-fried me-2"></i>Snacks destacados</h2>
+            
+            {% if snacks %}
+            <div class="row g-4">
+                {% for s in snacks %}
+                <div class="col-6 col-md-4 col-lg-3">
+                    <div class="movie-card card h-100">
+                        {% if s.image %}
+                        <img src="{{ s.image.url }}" alt="{{ s.name }}" class="card-img-top" style="height: 200px; object-fit: cover;">
+                        {% else %}
+                        <img src="https://placehold.co/400x300" alt="Snack" class="card-img-top" style="height: 200px; object-fit: cover;">
+                        {% endif %}
+                        <div class="card-body text-center">
+                            <h3 class="card-title fw-bold">{{ s.name }}</h3>
+                            <p class="card-text text-muted small">{{ s.category }}</p>
+                            <p class="fw-bold text-danger mb-3">${{ s.price }}</p>
+                            <button class="btn btn-cinex btn-sm">
+                                Ver más
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="text-center mt-5">
+                <button class="btn btn-dark">
+                    <i class="bi bi-cart3 me-2"></i> Ver todos los snacks
+                </button>
+            </div>
+            {% else %}
+            <div class="alert alert-warning text-center">
+                <i class="bi bi-emoji-frown me-2"></i> No hay snacks disponibles.
+            </div>
+            {% endif %}
+        </div>
+    </section>
+{% endblock %}

@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cinepolis - Tu cine favorito</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .movie-card:hover {
+            transform: scale(1.05);
+            transition: transform 0.3s ease;
+        }
+        .sala-asiento {
+            width: 30px;
+            height: 30px;
+            margin: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+        }
+        .sala-asiento.disponible {
+            background-color: #22c55e;
+        }
+        .sala-asiento.ocupado {
+            background-color: #ef4444;
+            cursor: not-allowed;
+        }
+        .sala-asiento.seleccionado {
+            background-color: #3b82f6;
+        }
+        .sala-pantalla {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <!-- Header -->
+    <header class="bg-red-700 text-white shadow-lg">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <img src="https://placehold.co/100x50" alt="Logo de Cinepolis con letras blancas sobre fondo rojo" class="h-12">
+                <h1 class="text-2xl font-bold">Cinepolis</h1>
+            </div>
+            <nav class="hidden md:flex space-x-6">
+                <a href="#cartelera" class="hover:text-yellow-300 transition">Cartelera</a>
+                <a href="#proximamente" class="hover:text-yellow-300 transition">Próximamente</a>
+                <a href="#dulceria" class="hover:text-yellow-300 transition">Dulcería</a>
+                <a href="#reservas" class="hover:text-yellow-300 transition">Reservas</a>
+            </nav>
+            <div class="flex items-center space-x-4">
+                <button class="bg-yellow-500 hover:bg-yellow-600 text-black px-4 py-2 rounded-lg font-semibold transition">
+                    Iniciar Sesión
+                </button>
+                <button class="md:hidden text-xl">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative h-96 bg-black">
+        <img src="https://placehold.co/1920x600" alt="Gran pantalla de cine con luces y butacas vacías esperando espectadores" class="w-full h-full object-cover opacity-70">
+        <div class="absolute inset-0 flex items-center justify-center text-center px-4">
+            <div>
+                <h2 class="text-4xl md:text-6xl font-bold text-white mb-4">Vive la mejor experiencia cinematográfica</h2>
+                <p class="text-xl text-white mb-8">Reserva tus boletos ahora y disfruta de las mejores películas</p>
+                <button class="bg-red-700 hover:bg-red-800 text-white px-8 py-3 rounded-lg font-bold text-lg transition">
+                    Comprar boletos
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección de Cartelera -->
+    <section id="cartelera" class="py-12 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold mb-8 text-center">Películas en cartelera</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Película 1 -->
+                <div class="movie-card bg-gray-50 rounded-lg overflow-hidden shadow-lg">
+                    <img src="https://placehold.co/400x600" alt="Póster de la película Duna, ciencia ficción épica con paisajes desérticos y actores principales" class="w-full h-64 object-cover">
+                    <div class="p-4">
+                        <h3 class="font-bold text-xl mb-2">Duna: Parte Dos</h3>
+                        <p class="text-gray-600 mb-2">2h 46min | Ciencia ficción</p>
+                        <div class="flex justify-between items-center">
+                            <div class="flex space-x-1 text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <span class="bg-red-100 text-red-800 text-xs px-2 py-1 rounded">Nuevo</span>
+                        </div>
+                        <button class="mt-4 w-full bg-red-700 hover:bg-red-800 text-white py-2 rounded transition">
+                            Comprar boletos
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Película 2 -->
+                <div class="movie-card bg-gray-50 rounded-lg overflow-hidden shadow-lg">
+                    <img src="https://placehold.co/400x600" alt="Póster de Spider-Man: Across the Spider-Verse con múltiples versiones de Spider-Man" class="w-full h-64 object-cover">
+                    <div class="p-4">
+                        <h3 class="font-bold text-xl mb-2">Spider-Man: Across the Spider-Verse</h3>
+                        <p class="text-gray-600 mb-2">2h 20min | Animación, Acción</p>
+                        <div class="flex justify-between items-center">
+                            <div class="flex space-x-1 text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                        </div>
+                        <button class="mt-4 w-full bg-red-700 hover:bg-red-800 text-white py-2 rounded transition">
+                            Comprar boletos
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Película 3 -->
+                <div class="movie-card bg-gray-50 rounded-lg overflow-hidden shadow-lg">
+                    <img src="https://placehold.co/400x600" alt="Póster de Oppenheimer con retrato dramático del físico nuclear" class="w-full h-64 object-cover">
+                    <div class="p-4">
+                        <h3 class="font-bold text-xl mb-2">Oppenheimer</h3>
+                        <p class="text-gray-600 mb-2">3h | Drama histórico</p>
+                        <div class="flex justify-between items-center">
+                            <div class="flex space-x-1 text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                        <button class="mt-4 w-full bg-red-700 hover:bg-red-800 text-white py-2 rounded transition">
+                            Comprar boletos
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Película 4 -->
+                <div class="movie-card bg-gray-50 rounded-lg overflow-hidden shadow-lg">
+                    <img src="https://placehold.co/400x600" alt="Póster de The Batman con el héroe en la lluvia iluminado por faroles" class="w-full h-64 object-cover">
+                    <div class="p-4">
+                        <h3 class="font-bold text-xl mb-2">The Batman</h3>
+                        <p class="text-gray-600 mb-2">2h 56min | Acción, Drama</p>
+                        <div class="flex justify-between items-center">
+                            <div class="flex space-x-1 text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                        </div>
+                        <button class="mt-4 w-full bg-red-700 hover:bg-red-800 text-white py-2 rounded transition">
+                            Comprar boletos
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección de Próximos estrenos -->
+    <section id="proximamente" class="py-12 bg-gray-100">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold mb-8 text-center">Próximos estrenos</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Estreno 1 -->
+                <div class="movie-card bg-white rounded-lg overflow-hidden shadow-lg">
+                    <img src="https://placehold.co/400x600" alt="Póster de Deadpool 3 con el personaje principal en pose característica" class="w-full h-64 object-cover">
+                    <div class="p-4">
+                        <h3 class="font-bold text-xl mb-2">Deadpool & Wolverine</h3>
+                        <p class="text-gray-600 mb-2">Acción, Comedia | 26 Julio 2024</p>
+                        <div class="flex justify-between items-center">
+                            <div class="flex space-x-1 text-gray-400">
+                                <i class="far fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                            <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded">Próximamente</span>
+                        </div>
+                        <button class="mt-4 w-full bg-gray-300 hover:bg-gray-400 text-gray-800 py-2 rounded transition">
+                            Notificarme
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Estreno 2 -->
+                <div class="movie-card bg-white rounded-lg overflow-hidden shadow-lg">
+                    <img src="https://placehold.co/400x600" alt="Póster de Joker: Folie à Deux con Joaquin Phoenix como el Joker en un asilo" class="w-full h-64 object-cover">
+                    <div class="p-4">
+                        <h3 class="font-bold text-xl mb-2">Joker: Folie à Deux</h3>
+                        <p class="text-gray-600 mb-2">Drama, Thriller | 4 Octubre 2024</p>
+                        <div class="flex justify-between items-center">
+                            <div class="flex space-x-1 text-gray-400">
+                                <i class="far fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                            <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded">Próximamente</span>
+                        </div>
+                        <button class="mt-4 w-full bg-gray-300 hover:bg-gray-400 text-gray-800 py-2 rounded transition">
+                            Notificarme
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Estreno 3 -->
+                <div class="movie-card bg-white rounded-lg overflow-hidden shadow-lg">
+                    <img src="https://placehold.co/400x600" alt="Póster de Furiosa con la protagonista en un vehículo postapocalíptico en el desierto" class="w-full h-64 object-cover">
+                    <div class="p-4">
+                        <h3 class="font-bold text-xl mb-2">Furiosa: Mad Max</h3>
+                        <p class="text-gray-600 mb-2">Acción, Sci-Fi | 23 Mayo 2024</p>
+                        <div class="flex justify-between items-center">
+                            <div class="flex space-x-1 text-gray-400">
+                                <i class="far fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                            <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded">Próximamente</span>
+                        </div>
+                        <button class="mt-4 w-full bg-gray-300 hover:bg-gray-400 text-gray-800 py-2 rounded transition">
+                            Notificarme
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección de Dulcería -->
+    <section id="dulceria" class="py-12 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold mb-8 text-center">Dulcería</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Producto 1 -->
+                <div class="bg-gray-50 rounded-lg overflow-hidden shadow-md">
+                    <img src="https://placehold.co/400x300" alt="Combo familiar de palomitas grande con dos bebidas refrescantes" class="w-full h-48 object-cover">
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg mb-2">Combo Familiar</h3>
+                        <p class="text-gray-600 text-sm mb-3">Palomitas gigantes + 2 bebidas grandes</p>
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-red-700">$180.00</span>
+                            <button class="bg-amber-500 hover:bg-amber-600 text-white px-3 py-1 rounded text-sm">
+                                Añadir
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Producto 2 -->
+                <div class="bg-gray-50 rounded-lg overflow-hidden shadow-md">
+                    <img src="https://placehold.co/400x300" alt="Nachos con queso fundido y jalapeños en plato de cartón" class="w-full h-48 object-cover">
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg mb-2">Nachos con Queso</h3>
+                        <p class="text-gray-600 text-sm mb-3">Nachos con queso cheddar y jalapeños</p>
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-red-700">$120.00</span>
+                            <button class="bg-amber-500 hover:bg-amber-600 text-white px-3 py-1 rounded text-sm">
+                                Añadir
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Producto 3 -->
+                <div class="bg-gray-50 rounded-lg overflow-hidden shadow-md">
+                    <img src="https://placehold.co/400x300" alt="Hot dog con mostaza y ketchup en pan esponjoso" class="w-full h-48 object-cover">
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg mb-2">Hot Dog</h3>
+                        <p class="text-gray-600 text-sm mb-3">Hot dog con aderezos al gusto</p>
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-red-700">$90.00</span>
+                            <button class="bg-amber-500 hover:bg-amber-600 text-white px-3 py-1 rounded text-sm">
+                                Añadir
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Producto 4 -->
+                <div class="bg-gray-50 rounded-lg overflow-hidden shadow-md">
+                    <img src="https://placehold.co/400x300" alt="Variedad de dulces en bolsas de colores (M&M's, gomitas, chocolates)" class="w-full h-48 object-cover">
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg mb-2">Mix de Dulces</h3>
+                        <p class="text-gray-600 text-sm mb-3">Selección de dulces variados</p>
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-red-700">$110.00</span>
+                            <button class="bg-amber-500 hover:bg-amber-600 text-white px-3 py-1 rounded text-sm">
+                                Añadir
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-12 bg-yellow-50 p-6 rounded-lg border border-yellow-200">
+                <h3 class="text-xl font-bold mb-4">¡Combina y ahorra!</h3>
+                <p class="mb-4">Compra tu boleto + dulcería y obtén un 15% de descuento</p>
+                <button class="bg-red-700 hover:bg-red-800 text-white px-6 py-2 rounded font-medium">
+                    Ver promociones
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección de Reservas -->
+    <section id="reservas" class="py-12 bg-gray-100">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold mb-8 text-center">Reserva tus boletos</h2>
+            
+            <!-- Paso 1: Selección de Película -->
+            <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+                <h3 class="text-xl font-bold mb-4 flex items-center">
+                    <span class="bg-red-700 text-white rounded-full w-8 h-8 flex items-center justify-center mr-2">1</span>
+                    Selecciona una película
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <button class="border rounded-lg p-3 hover:border-red-700 transition movie-select" data-movie="duna">
+                        <div class="flex items-center">
+                            <img src="https://placehold.co/80x120" alt="Miniatura de Duna: Parte Dos" class="w-12 h-16 object-cover mr-3">
+                            <div>
+                                <h4 class="font-semibold text-left">Duna: Parte Dos</h4>
+                                <p class="text-sm text-gray-600">2h 46min</p>
+                            </div>
+                        </div>
+                    </button>
+                    <button class="border rounded-lg p-3 hover:border-red-700 transition movie-select" data-movie="spiderman">
+                        <div class="flex items-center">
+                            <img src="https://placehold.co/80x120" alt="Miniatura de Spider-Man: Across the Spider-Verse" class="w-12 h-16 object-cover mr-3">
+                            <div>
+                                <h4 class="font-semibold text-left">Spider-Man</h4>
+                                <p class="text-sm text-gray-600">2h 20min</p>
+                            </div>
+                        </div>
+                    </button>
+                    <button class="border rounded-lg p-3 hover:border-red-700 transition movie-select" data-movie="oppenheimer">
+                        <div class="flex items-center">
+                            <img src="https://placehold.co/80x120" alt="Miniatura de Oppenheimer" class="w-12 h-16 object-cover mr-3">
+                            <div>
+                                <h4 class="font-semibold text-left">Oppenheimer</h4>
+                                <p class="text-sm text-gray-600">3h</p>
+                            </div>
+                        </div>
+                    </button>
+                    <button class="border rounded-lg p-3 hover:border-red-700 transition movie-select" data-movie="batman">
+                        <div class="flex items-center">
+                            <img src="https://placehold.co/80x120" alt="Miniatura de The Batman" class="w-12 h-16 object-cover mr-3">
+                            <div>
+                                <h4 class="font-semibold text-left">The Batman</h4>
+                                <p class="text-sm text-gray-600">2h 56min</p>
+                            </div>
+                        </div>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Paso 2: Fecha y Hora -->
+            <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+                <h3 class="text-xl font-bold mb-4 flex items-center">
+                    <span class="bg-red-700 text-white rounded-full w-8 h-8 flex items-center justify-center mr-2">2</span>
+                    Selecciona fecha y hora
+                </h3>
+                <div id="date-time-selection">
+                    <div class="mb-4">
+                        <label class="block text-gray-700 mb-2">Fecha</label>
+                        <input type="date" class="w-full p-2 border rounded-lg" min="2024-03-20" max="2024-03-30">
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 mb-2">Horarios disponibles</label>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-2">
+                            <button class="bg-gray-200 hover:bg-red-700 hover:text-white p-2 rounded-lg text-center transition">11:30 AM</button>
+                            <button class="bg-gray-200 hover:bg-red-700 hover:text-white p-2 rounded-lg text-center transition">2:15 PM</button>
+                            <button class="bg-gray-200 hover:bg-red-700 hover:text-white p-2 rounded-lg text-center transition">5:00 PM</button>
+                            <button class="bg-gray-200 hover:bg-red-700 hover:text-white p-2 rounded-lg text-center transition">8:30 PM</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Paso 3: Selección de Asientos -->
+            <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+                <h3 class="text-xl font-bold mb-4 flex items-center">
+                    <span class="bg-red-700 text-white rounded-full w-8 h-8 flex items-center justify-center mr-2">3</span>
+                    Selecciona tus asientos
+                </h3>
+                <div class="mb-6 sala-pantalla">Pantalla</div>
+                <div id="sala-cine" class="flex flex-col items-center">
+                    <!-- Asientos se generarán dinámicamente con JavaScript -->
+                </div>
+                <div class="flex justify-center mt-6">
+                    <div class="flex items-center mr-6">
+                        <div class="sala-asiento disponible mr-2"></div>
+                        <span>Disponible</span>
+                    </div>
+                    <div class="flex items-center mr-6">
+                        <div class="sala-asiento seleccionado mr-2"></div>
+                        <span>Seleccionado</span>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="sala-asiento ocupado mr-2"></div>
+                        <span>Ocupado</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Paso 4: Dulcería -->
+            <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+                <h3 class="text-xl font-bold mb-4 flex items-center">
+                    <span class="bg-red-700 text-white rounded-full w-8 h-8 flex items-center justify-center mr-2">4</span>
+                    Agrega artículos de dulcería (opcional)
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Item dulcería 1 -->
+                    <div class="flex items-center border rounded-lg p-3">
+                        <img src="https://placehold.co/100x100" alt="Palomitas medianas en cubo de cartón" class="w-16 h-16 object-cover mr-3">
+                        <div class="flex-grow">
+                            <h4 class="font-semibold">Palomitas Medianas</h4>
+                            <p class="text-gray-600">$95.00</p>
+                        </div>
+                        <div class="flex items-center">
+                            <button class="bg-gray-200 px-2 py-1 rounded-l-lg">-</button>
+                            <span class="bg-gray-100 px-3 py-1">0</span>
+                            <button class="bg-gray-200 px-2 py-1 rounded-r-lg">+</button>
+                        </div>
+                    </div>
+                    <!-- Item dulcería 2 -->
+                    <div class="flex items-center border rounded-lg p-3">
+                        <img src="https://placehold.co/100x100" alt="Refresco grande con hielo y pajilla" class="w-16 h-16 object-cover mr-3">
+                        <div class="flex-grow">
+                            <h4 class="font-semibold">Refresco Grande</h4>
+                            <p class="text-gray-600">$65.00</p>
+                        </div>
+                        <div class="flex items-center">
+                            <button class="bg-gray-200 px-2 py-1 rounded-l-lg">-</button>
+                            <span class="bg-gray-100 px-3 py-1">0</span>
+                            <button class="bg-gray-200 px-2 py-1 rounded-r-lg">+</button>
+                        </div>
+                    </div>
+                    <!-- Item dulcería 3 -->
+                    <div class="flex items-center border rounded-lg p-3">
+                        <img src="https://placehold.co/100x100" alt="Chocolates variados en bolsa" class="w-16 h-16 object-cover mr-3">
+                        <div class="flex-grow">
+                            <h4 class="font-semibold">Mix Chocolates</h4>
+                            <p class="text-gray-600">$80.00</p>
+                        </div>
+                        <div class="flex items-center">
+                            <button class="bg-gray-200 px-2 py-1 rounded-l-lg">-</button>
+                            <span class="bg-gray-100 px-3 py-1">0</span>
+                            <button class="bg-gray-200 px-2 py-1 rounded-r-lg">+</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Paso 5: Resumen y Pago -->
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <h3 class="text-xl font-bold mb-4 flex items-center">
+                    <span class="bg-red-700 text-white rounded-full w-8 h-8 flex items-center justify-center mr-2">5</span>
+                    Resumen y pago
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="md:col-span-2">
+                        <h4 class="font-semibold mb-2">Detalles de la compra</h4>
+                        <div class="border rounded-lg p-4 mb-4">
+                            <div class="flex mb-3">
+                                <img src="https://placehold.co/80x120" alt="Póster de película seleccionada" class="w-16 h-24 object-cover mr-4">
+                                <div>
+                                    <h5 class="font-bold" id="movie-selected-title">Selecciona una película</h5>
+                                    <p><span id="movie-show-date">-</span> - <span id="movie-show-time">-</span></p>
+                                    <p id="selected-seats">Asientos: No seleccionados</p>
+                                </div>
+                            </div>
+                            <div id="concession-items" class="border-t pt-3">
+                                <p class="text-gray-600">No hay artículos de dulcería</p>
+                            </div>
+                        </div>
+                        <div class="border rounded-lg p-4">
+                            <h4 class="font-semibold mb-2">Detalles de pago</h4>
+                            <div class="mb-3">
+                                <label class="block text-gray-700 mb-1">Nombre en la tarjeta</label>
+                                <input type="text" class="w-full p-2 border rounded-lg" placeholder="Nombre completo">
+                            </div>
+                            <div class="mb-3">
+                                <label class="block text-gray-700 mb-1">Número de tarjeta</label>
+                                <input type="text" class="w-full p-2 border rounded-lg" placeholder="xxxx xxxx xxxx xxxx">
+                            </div>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-gray-700 mb-1">Fecha de expiración</label>
+                                    <input type="text" class="w-full p-2 border rounded-lg" placeholder="MM/AA">
+                                </div>
+                                <div>
+                                    <label class="block text-gray-700 mb-1">CVV</label>
+                                    <input type="text" class="w-full p-2 border rounded-lg" placeholder="123">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold mb-2">Total</h4>
+                        <div class="border rounded-lg p-4">
+                            <div class="flex justify-between mb-2">
+                                <span>Boletos:</span>
+                                <span id="tickets-total">$0.00</span>
+                            </div>
+                            <div class="flex justify-between mb-2">
+                                <span>Dulcería:</span>
+                                <span id="concession-total">$0.00</span>
+                            </div>
+                            <div class="flex justify-between font-semibold text-lg border-t pt-2 mt-2">
+                                <span>Total:</span>
+                                <span id="grand-total">$0.00</span>
+                            </div>
+                            <button class="w-full mt-4 bg-red-700 hover:bg-red-800 text-white py-3 rounded-lg font-bold transition">
+                                Confirmar y pagar
+                            </button>
+                            <p class="text-xs text-gray-500 mt-2">Al completar tu compra aceptas nuestros términos y condiciones.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección de Salas -->
+    <section id="salas" class="py-12 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold mb-8 text-center">Nuestras Salas</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Sala 1 -->
+                <div class="bg-gray-50 rounded-lg overflow-hidden shadow-lg">
+                    <img src="https://placehold.co/800x500" alt="Sala de cine tradicional con butacas rojas en filas" class="w-full h-64 object-cover">
+                    <div class="p-4">
+                        <h3 class="font-bold text-xl mb-2">Sala Tradicional</h3>
+                        <p class="text-gray-600 mb-3">Experimenta el cine como siempre, con la mejor calidad de sonido y proyección.</p>
+                        <div class="flex items-center text-yellow-500">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                            <span class="text-gray-600 ml-2 text-sm">4.5 (120 opiniones)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sala 2 -->
+                <div class="bg-gray-50 rounded-lg overflow-hidden shadow-lg">
+                    <img src="https://placehold.co/800x500" alt="Sala VIP con butacas reclinables de cuero y mesitas" class="w-full h-64 object-cover">
+                    <div class="p-4">
+                        <h3 class="font-bold text-xl mb-2">Sala VIP</h3>
+                        <p class="text-gray-600 mb-3">Butacas reclinables, mayor espacio y servicio a tu asiento. La experiencia premium.</p>
+                        <div class="flex items-center text-yellow-500">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <span class="text-gray-600 ml-2 text-sm">5.0 (80 opiniones)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sala 3 -->
+                <div class="bg-gray-50 rounded-lg overflow-hidden shadow-lg">
+                    <img src="https://placehold.co/800x500" alt="Sala IMAX con pantalla gigante curva y butacas azules" class="w-full h-64 object-cover">
+                    <div class="p-4">
+                        <h3 class="font-bold text-xl mb-2">Sala IMAX</h3>
+                        <p class="text-gray-600 mb-3">Pantalla gigante con sonido envolvente para una experiencia inmersiva.</p>
+                        <div class="flex items-center text-yellow-500">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <span class="text-gray-600 ml-2 text-sm">5.0 (95 opiniones)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white pt-12 pb-6">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Cinepolis</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:text-red-400 transition">Acerca de nosotros</a></li>
+                        <li><a href="#" class="hover:text-red-400 transition">Trabaja con nosotros</a></li>
+                        <li><a href="#" class="hover:text-red-400 transition">Sala de prensa</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Servicios</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:text-red-400 transition">Starcard</a></li>
+                        <li><a href="#" class="hover:text-red-400 transition">Cinepolis VIP</a></li>
+                        <li><a href="#" class="hover:text-red-400 transition">Eventos privados</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Atención al cliente</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:text-red-400 transition">Contáctanos</a></li>
+                        <li><a href="#" class="hover:text-red-400 transition">Preguntas frecuentes</a></li>
+                        <li><a href="#" class="hover:text-red-400 transition">Términos y condiciones</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Síguenos</h3>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-red-700 transition">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-red-700 transition">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-red-700 transition">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-6 text-center text-gray-400 text-sm">
+                <p>© 2024 Cinepolis. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal de Inicio de Sesión -->
+    <div id="login-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
+        <div class="bg-white rounded-lg p-6 w-full max-w-md">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-xl font-bold">Iniciar Sesión</h3>
+                <button id="close-log
